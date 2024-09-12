@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PiggyBank</title>
     <style>
-        h1, h2 {
+        h1, h2, h3 {
             text-align: center;
         }
         #menu {
@@ -27,6 +27,7 @@
             color: #000000;
         }
         #data {
+            justify-content: center;
             display: flex;
             flex-wrap: wrap;
         }
@@ -35,11 +36,12 @@
             border-radius: 5px 5px 0 0;
         }
         .card {
+            font-family: Tahoma, sans-serif;
             width: 20%;
             margin:10px;
             box-shadow: 0 3px 7px 0 black;
             transition: 0.5s;
-            border-radius: 3px;
+            border-radius: 10px;
         }
         .card:hover {
             box-shadow: 0 8px 20px 0 black;
@@ -86,17 +88,19 @@
                 data.forEach(   f => {
                     const newCard = document.createElement("div");
                     newCard.className = 'card';
-                    
+
+                    //All images were generated using Canvas' magic maker tool
+
                     newCard.innerHTML = `
-                        <h2>Fundraiser ID: ${f.FUNDRAISER_ID}</h2>
+                        <h3>Help Support </h3>
+                        <h2> ${f.ORGANIZER}</h2>
                         <div class="fundraiser-info">
-                            <img src="${f.IMG_URL}">
-                            <p><strong>Organiser:</strong> ${f.ORGANIZER}</p>
-                            <p><strong>Description:</strong> ${f.CAPTION}</p>
+                            <img src="${f.IMG_URL}"> 
+                            <p> <strong>${f.CAPTION}</strong></p>
                             <p><strong>Funding Goal:</strong> $${f.TARGET_FUNDING}</p>
                             <p><strong>Money Raised:</strong> $${f.CURRENT_FUNDING}</p>
                             <p><strong>City:</strong> ${f.CITY}</p>
-                            <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'}</p>
+                            <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
                             <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
                         </div>
                     `;
