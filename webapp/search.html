@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PiggyBank</title>
     <style>
-        h1, h2 {
+        h1, h2, h3 {
+            font-family: Arial, Helvetica, sans-serif;
             text-align: center;
         }
         #menu {
@@ -26,6 +27,11 @@
             background-color: hsla(201, 100%, 80%, 0.506);
             color: #000000;
         }
+
+
+        #contact {
+            text-align: center;
+        }
      </style>
 </head>
 <body>
@@ -39,8 +45,25 @@
         <a href="fundraiser" class="nav">FUNDRAISERS </a>
     </div>
 
-    <div id="about">
+    <div id="search">
         <h2>SEARCH</h2>
+        <form id="searchform">
+            <ul>
+                <li>
+                    <label for="organiser">Organiser:  </label>
+                    <input type="text" id="organiser"/>
+                </li>
+                <li>
+                    <label for="category">Category: </label>
+                    <select id="category" id="category"></select>
+                </li>
+                <li>
+                    <label for="city">City: </label>
+                    <input type="text" id="city"/>
+                </li>
+            </ul>
+        </form>
+
     </div>
 
     <div id="fund-list">
@@ -51,9 +74,40 @@
 
     </div>
 
+    <div id="contact">
+        <h3>Contact Us</h3>
+        <p>Head Office: 28 Fake St, Brisbane 4000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone: (07) 5512 3456</p>
+    </div>
 
     <script>
+        //call GET api to retrieve list of categories from database
+        fetch("http://localhost:3060/category")
+        .then(response => response.json())
+        .then(categories => {
+            const options = document.getElementById('category');
+            options.innerHTML = "";
 
+            const opt = document.createElement("option");
+            opt.text = "Choose";
+            opt.value = "";
+
+            options.appendChild(opt);
+
+            if(categories.length > 0){
+                categories.forEach(   c => {
+                    const newOpt = document.createElement("option");
+
+                    newOpt.text = c.NAME;
+                    newOpt.value = c.NAME;
+                    
+                    options.appendChild(newOpt);
+                })
+            }
+        })
+        .catch(error => {
+            console.error("Error occured while fetching categories", error);
+            document.getElementById('categories').textContent="Failed to load categories";
+        });        
     </script>
 </body>
 </html>

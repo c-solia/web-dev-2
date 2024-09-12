@@ -24,7 +24,7 @@ router.get("/",(req,res) =>{
 })
 
 //GET request 2
-router.get("/search",(req,res) =>{
+router.get("/category",(req,res) =>{
     connection.query(`SELECT NAME FROM CATEGORY;`,(err,records, fields) =>{
         if(err){
             console.log("Error while retrieving categories");
