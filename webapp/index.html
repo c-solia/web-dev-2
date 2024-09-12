@@ -43,7 +43,7 @@
 
     </div>
 
-    <div id="fund-list">
+    <div id="data">
 
     </div>
 
@@ -53,6 +53,16 @@
 
 
     <script>
+        //call GET api to the the list of active fundraisers
+        fetch("http://localhost:3060")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('data').textContent="I got the data! :D";
+        })
+        .catch(error => {
+            console.error("Error occured while fetching data", error);
+            document.getElementById('data').textContent="Failed to load data";
+        });
 
     </script>
 </body>
