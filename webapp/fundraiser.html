@@ -21,7 +21,7 @@
         <h2>FUNDRAISERS</h2>
     </div>
 
-    <div id="fund-list">
+    <div id="data">
 
     </div>
 
@@ -35,34 +35,58 @@
     </div>
 
     <script>
+        function loadPage() {
+            const url = new URLSearchParams(window.location.search);
+            const id = url.get('id');
 
-        fetch("http://localhost:3060/fundraiser/")
-                .then(response => response.json())
-                .then(categories => {
-                    const options = document.getElementById('category');
-                    options.innerHTML = "";
+            console.log(id);
 
-                    const opt = document.createElement("option");
-                    opt.text = "Choose";
-                    opt.value = "";
 
-                    options.appendChild(opt);
+            fetch("http://localhost:3060/fundraiser/"+id)
+            .then(response => {
+                console.log(response.status);
+                return response.json();
+            )}
+        .then(data => {
+            console.log(data);
 
-                    if(categories.length > 0){
-                        categories.forEach(   c => {
-                            const newOpt = document.createElement("option");
+            const dataDiv = document.getElementById('data');
+            dataDiv.innerHTML = "";
 
-                            newOpt.text = c.NAME;
-                            newOpt.value = c.NAME;
-                            
-                            options.appendChild(newOpt);
-                        })
-                    }
+            if(data.length > 0){
+                data.forEach(   f => {
+                    const newCard = document.createElement("div");
+                    newCard.className = 'card';
+
+                    newCard.innerHTML = `
+                        <h3>Help Support </h3>
+                        <h2> ${f.ORGANIZER}</h2>
+                        <div class="fundraiser-info">
+                            <img src="${f.IMG_URL}"> 
+                            <p> <strong>${f.CAPTION}</strong></p>
+                            <p><strong>Funding Goal:</strong> $${f.TARGET_FUNDING}</p>
+                            <p><strong>Money Raised:</strong> $${f.CURRENT_FUNDING}</p>
+                            <p><strong>City:</strong> ${f.CITY}</p>
+                            <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
+                            <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
+                            <button onclick="location.href='http://localhost:3030/fundraiser/${f.FUNDRAISER_ID}'" type="button">Find Out More</button>
+                        </div>
+                    `;        
+                    dataDiv.appendChild(newCard);
                 })
-                .catch(error => {
-                    console.error("Error occured while fetching categories", error);
-                    document.getElementById('categories').textContent="Failed to load categories";
-                });
+            }
+        })
+        .catch(error => {
+            console.error("Error occured while fetching data", error);
+            document.getElementById('data').textContent="Failed to load data";
+        });
+        }
+
+
+
+
+        
+        window.onload = loadPage();
     </script>
 </body>
 </html>

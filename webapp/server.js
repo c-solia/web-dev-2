@@ -30,7 +30,7 @@ app.get("/search", (req,res) => {
 
 
 //Routing for fundraiser.html
-app.get("/fundraiser", (req,res) => {
+app.get("/fundraiser/:id", (req,res) => {
     res.sendFile(path.join(__dirname, "fundraiser.html"));
 });
 
