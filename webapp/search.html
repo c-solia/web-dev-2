@@ -41,8 +41,7 @@
         </form>
     </div>
 
-    <p id="errorMessage"></p>
-
+    <p id="errorMessage"></p>                            
 
     <div id="data">
         
@@ -99,6 +98,7 @@
                                 <p><strong>City:</strong> ${f.CITY}</p>
                                 <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
                                 <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
+                                <button onclick="location.href='http://localhost:3030/fundraiser/${f.FUNDRAISER_ID}'" type="button">Find Out More</button>
                             </div>
                         `;        
                         fundDiv.appendChild(newCard);
@@ -114,7 +114,6 @@
                 });
             }
         }
-
 
         //call GET api to retrieve list of categories from database
         fetch("http://localhost:3060/category")

@@ -36,6 +36,33 @@
 
     <script>
 
+        fetch("http://localhost:3060/fundraiser/")
+                .then(response => response.json())
+                .then(categories => {
+                    const options = document.getElementById('category');
+                    options.innerHTML = "";
+
+                    const opt = document.createElement("option");
+                    opt.text = "Choose";
+                    opt.value = "";
+
+                    options.appendChild(opt);
+
+                    if(categories.length > 0){
+                        categories.forEach(   c => {
+                            const newOpt = document.createElement("option");
+
+                            newOpt.text = c.NAME;
+                            newOpt.value = c.NAME;
+                            
+                            options.appendChild(newOpt);
+                        })
+                    }
+                })
+                .catch(error => {
+                    console.error("Error occured while fetching categories", error);
+                    document.getElementById('categories').textContent="Failed to load categories";
+                });
     </script>
 </body>
 </html>

@@ -55,6 +55,19 @@ img {
 .card:hover {
     box-shadow: 0 8px 20px 0 black;
 }
+.card button {
+    display: block;
+    margin: 0 auto;
+    background: #5E5DF0;
+    color: #FFFFFF;
+    border-radius: 999px;
+    font-family: Tahoma, sans-serif;
+    font-size: 18px;
+    padding: 8px 18px;
+}
+.card button:hover {
+    background: #215bfc;
+}
 .fundraiser-info {
     padding:8px;
 }

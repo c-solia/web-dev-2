@@ -6,10 +6,6 @@ var connection = dbcon.getConnection();
 
 connection.connect();
 
-
-
-
-
 //Get request 1
 router.get("/",(req,res) =>{
     connection.query(`SELECT FUNDRAISER.FUNDRAISER_ID, FUNDRAISER.ORGANIZER, FUNDRAISER.CAPTION, FUNDRAISER.TARGET_FUNDING, FUNDRAISER.CURRENT_FUNDING, FUNDRAISER.CITY, FUNDRAISER.ACTIVE, FUNDRAISER.IMG_URL, CATEGORY.NAME AS CATEGORY_NAME 
@@ -67,7 +63,6 @@ router.get("/search",(req,res) =>{
     })
 })
 
-
 //Get request 4
 router.get("/fundraiser/:id",(req,res) =>{
     connection.query(`SELECT FUNDRAISER.FUNDRAISER_ID, FUNDRAISER.ORGANIZER, FUNDRAISER.CAPTION, FUNDRAISER.TARGET_FUNDING, FUNDRAISER.CURRENT_FUNDING, FUNDRAISER.CITY, FUNDRAISER.ACTIVE, FUNDRAISER.IMG_URL, CATEGORY.NAME AS CATEGORY_NAME 
@@ -80,7 +75,6 @@ router.get("/fundraiser/:id",(req,res) =>{
     }
     })
 })
-
 
 //Exports the module - must go at end of file
 module.exports = router;

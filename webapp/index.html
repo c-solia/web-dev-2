@@ -62,6 +62,7 @@
                             <p><strong>City:</strong> ${f.CITY}</p>
                             <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
                             <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
+                            <button onclick="location.href='http://localhost:3030/fundraiser/${f.FUNDRAISER_ID}'" type="button">Find Out More</button>
                         </div>
                     `;        
                     dataDiv.appendChild(newCard);
