@@ -61,7 +61,11 @@
                     <label for="city">City: </label>
                     <input type="text" id="city"/>
                 </li>
+                <li>
+                    <input type="button" id="submit" value="Search" onclick="search()"/>
+                </li>
             </ul>
+
         </form>
 
     </div>
@@ -80,6 +84,41 @@
     </div>
 
     <script>
+        function search() {
+            //creates the querystring to be used for the API
+            var cat = document.getElementById("category").value;
+            var city = document.getElementById("city").value;
+            var org = document.getElementById("organiser").value;
+
+            var url = "category="+cat+"&city="+city+"&organiser="+org;
+
+            console.log("http://localhost:3060/search?"+url);
+
+            //call GET API to retrive fundraiser info based on user input
+            fetch("http://localhost:3060/search?"+url)
+            .then(response => response.json())
+            .then(fund => {
+                const fundDiv = document.getElementById('fund-list');
+                fundDiv.innerHTML = "";
+
+                if(fund.length > 0){
+                    fund.forEach(   f => {
+                        const newFund = document.createElement("div");
+                        newFund.className = 'myFunds';
+
+                        //All images were generated using Canvas' magic maker tool
+
+                        newFund.innerHTML = `${f.ORGANIZER} has been returned`;        
+                        fundDiv.appendChild(newFund);
+                    })
+                }
+            })
+            .catch(error => {
+                console.error("Error occured while fetching data", error);
+                document.getElementById('data').textContent="Failed to load data";
+            });
+        }
+
         //call GET api to retrieve list of categories from database
         fetch("http://localhost:3060/category")
         .then(response => response.json())
@@ -107,7 +146,7 @@
         .catch(error => {
             console.error("Error occured while fetching categories", error);
             document.getElementById('categories').textContent="Failed to load categories";
-        });        
+        });
     </script>
 </body>
 </html>

@@ -125,17 +125,11 @@
                             <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
                             <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
                         </div>
-                    `;
-                    
+                    `;        
                     dataDiv.appendChild(newCard);
                 }
-
                 )
             }
-
-
-
-
         })
         .catch(error => {
             console.error("Error occured while fetching data", error);
