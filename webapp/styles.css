@@ -37,6 +37,9 @@ h1, h2, h3 {
     display: flex;
     flex-wrap: wrap;
 }
+ul {
+    list-style-type: none;
+}
 img {
     width: 100%;
     border-radius: 5px 5px 0 0;
@@ -57,4 +60,51 @@ img {
 }
 #contact {
     text-align: center;
+}
+#organiser, #city {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+#category {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 10px;
+}
+#searchform {
+    width: 30%;
+    margin: auto;
+}
+label {
+    font-family: Tahoma, sans-serif;
+    font-size: 18px;
+    display:flex;
+    flex-direction:column;
+}
+input {
+    font-family: Tahoma, sans-serif;
+    font-size: 16px;
+    display:flex;
+    flex-direction:column;
+}
+select {
+    font-family: Tahoma, sans-serif;
+    font-size: 16px;
+}
+label {
+    margin:8px;
+}
+#errorMessage {
+    text-align: center;
+    font-family: Tahoma, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    color: red;
+}
+#submit, #clear {
+    display: inline-block;
+    font-family: Tahoma, sans-serif;
+    font-size: 20px;
 }

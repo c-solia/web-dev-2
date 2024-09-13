@@ -18,36 +18,34 @@
     </div>
 
     <div id="search">
-        <h2>SEARCH</h2>
+        <h3>Please enter at least one search criteria </h3>
         <form id="searchform">
             <ul>
                 <li>
-                    <label for="organiser">Organiser:  </label>
+                    <label for="organiser">Organiser  </label>
                     <input type="text" id="organiser"/>
                 </li>
                 <li>
-                    <label for="category">Category: </label>
+                    <label for="category">Category </label>
                     <select id="category" id="category"></select>
                 </li>
                 <li>
-                    <label for="city">City: </label>
+                    <label for="city">City </label>
                     <input type="text" id="city"/>
                 </li>
                 <li>
                     <input type="button" id="submit" value="Search" onclick="search()"/>
+                    <input type="button" id="clear" value="Clear" onclick="clearTextBoxes()"/>
                 </li>
             </ul>
-
         </form>
-
     </div>
 
-    <div id="fund-list">
+    <p id="errorMessage"></p>
 
-    </div>
 
-    <div id="">
-
+    <div id="data">
+        
     </div>
 
     <div id="contact">
@@ -56,6 +54,10 @@
     </div>
 
     <script>
+        function clearTextBoxes() {
+            document.getElementById("searchform").reset();
+            document.getElementById("errorMessage").innerHTML = "";
+        }
         function search() {
             //creates the querystring to be used for the API
             var cat = document.getElementById("category").value;
@@ -64,32 +66,55 @@
 
             var url = "category="+cat+"&city="+city+"&organiser="+org;
 
-            console.log("http://localhost:3060/search?"+url);
+            document.getElementById("errorMessage").innerHTML = "";
 
-            //call GET API to retrive fundraiser info based on user input
-            fetch("http://localhost:3060/search?"+url)
-            .then(response => response.json())
-            .then(fund => {
-                const fundDiv = document.getElementById('fund-list');
-                fundDiv.innerHTML = "";
+            if(cat === '' && city === '' && org === '') {
+                document.getElementById("errorMessage").innerHTML = "Please enter at least 1 criteria";
+            }
+            else {
+                console.log("http://localhost:3060/search?"+url);
 
-                if(fund.length > 0){
-                    fund.forEach(   f => {
-                        const newFund = document.createElement("div");
-                        newFund.className = 'myFunds';
+                //call GET API to retrive fundraiser info based on user input
+                fetch("http://localhost:3060/search?"+url)
+                .then(response => response.json())
+                .then(fund => {
+                    const fundDiv = document.getElementById('data');
+                    fundDiv.innerHTML = "";
 
-                        //All images were generated using Canvas' magic maker tool
+                    if(fund.length > 0){
+                        fund.forEach(   f => {
+                            const newCard = document.createElement("div");
+                            newCard.className = 'card';
 
-                        newFund.innerHTML = `${f.ORGANIZER} has been returned`;        
-                        fundDiv.appendChild(newFund);
-                    })
-                }
-            })
-            .catch(error => {
-                console.error("Error occured while fetching data", error);
-                document.getElementById('data').textContent="Failed to load data";
-            });
+                            //All images were generated using Canvas' magic maker tool
+
+                            newCard.innerHTML = `
+                            <h3>Help Support </h3>
+                            <h2> ${f.ORGANIZER}</h2>
+                            <div class="fundraiser-info">
+                                <img src="${f.IMG_URL}"> 
+                                <p> <strong>${f.CAPTION}</strong></p>
+                                <p><strong>Funding Goal:</strong> $${f.TARGET_FUNDING}</p>
+                                <p><strong>Money Raised:</strong> $${f.CURRENT_FUNDING}</p>
+                                <p><strong>City:</strong> ${f.CITY}</p>
+                                <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'} &nbsp;&nbsp;&nbsp; <strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
+                                <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
+                            </div>
+                        `;        
+                        fundDiv.appendChild(newCard);
+                        });
+                    } 
+                    else {
+                        document.getElementById("errorMessage").innerHTML = "No matching fundraisers found";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error occured while fetching data", error);
+                    document.getElementById("errorMessage").innerHTML = "Error occured while fetching data";
+                });
+            }
         }
+
 
         //call GET api to retrieve list of categories from database
         fetch("http://localhost:3060/category")
