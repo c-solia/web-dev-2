@@ -56,7 +56,7 @@
                     const newFund = document.createElement("div");  //Creates new div
                     newFund.className = 'fund'; //Sets the class name of the new div
 
-                    //Sets the innHTML of the new div
+                    //Sets the innerHTML of the new div
                     newFund.innerHTML = `
                     <br>
                     <h2>${f.ORGANIZER} needs your support!</h2>
@@ -81,7 +81,7 @@
                 })
             }
         })
-        //Erro handling
+        //Error handling
         .catch(error => {
             console.error("Error occured while fetching data", error);
             document.getElementById('data').textContent="Failed to load data";
@@ -90,6 +90,7 @@
 
         //When the page first loads, calls the loadPage() function to fetch API data and populate the page
         window.onload = loadPage();
+        
     </script>
 </body>
 </html>
