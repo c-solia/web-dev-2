@@ -27,6 +27,10 @@
     </div>
 
     <script>
+        function donateMessage() {
+            alert("This feature is under construction");
+        }
+
         function loadPage() {
             const id = window.location.pathname.split("/").pop();
 
@@ -58,7 +62,7 @@
                             <p><strong>Category:</strong> ${f.CATEGORY_NAME}</p>
                             <p><strong>Active:</strong> ${f.ACTIVE ? 'Yes' : 'No'}</p>
                             <p><strong>Fundraiser #</strong>${f.FUNDRAISER_ID}</p>
-                            <button onclick="location.href='http://localhost:3030/fundraiser/${f.FUNDRAISER_ID}'" type="button">Find Out More</button>
+                            <button id="donateButton" onclick="donateMessage()" type="button">DONATE NOW</button>
                         </div>
 
                         <div class="column">
