@@ -1,4 +1,4 @@
-var dbcon = require("../database");
+var dbcon = require("../crowdfunding_db.js");
 var express = require("express");
 var router = express.Router();
 

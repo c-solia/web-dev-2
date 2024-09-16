@@ -80,9 +80,9 @@
             //Rests error message
             document.getElementById("errorMessage").innerHTML = "";
 
-            //Input validation - Checks to see if all 3 search criteria are empty. If empty, displays error.
+            //Input validation - Checks to see if all 3 search criteria are empty. If empty, displays alert with error.
             if(cat === '' && city === '' && org === '') {
-                document.getElementById("errorMessage").innerHTML = "Please enter at least 1 criteria";  //Error message
+                alert("Please enter at least 1 criteria");  //Alert with error message
             }
             //Input validation - uses the regex to ensure the city field only contains letters and whitespace
             else if (!regex.test(city)) {
